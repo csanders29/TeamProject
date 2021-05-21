@@ -47,7 +47,7 @@ public class Snake extends JFrame {
                 Board.playGame = false;
             }
         }
-        if (Board.y[0] >= Board.WindowSize || Board.y[0] <= 0 || Board.x[0]>=Board.WindowSize || Board.x[0]<=0) {
+        if (Board.y[0] > Board.WindowSize || Board.y[0] < 0 || Board.x[0]>Board.WindowSize || Board.x[0]<0) {
             Board.playGame = false;
         }
 

@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,8 +17,9 @@ public class Board extends JPanel implements ActionListener
     public static int WindowSize = 300;
     public static int UnitSize = 5;
     public static int Units = 500;
-    private int RandPos = 9;
+    private int RandPos = 60;
     private int Delay = 120;
+    private int booting=60;
 
     public static int[] x = new int[Units];
     public static int[] y = new int[Units];
@@ -25,6 +27,7 @@ public class Board extends JPanel implements ActionListener
     public static int snakeSize;
     private int fruitX;
     private int fruitY;
+    private int fruitT;
 
     public static boolean playGame = true;
     private Timer timer;
@@ -64,11 +67,21 @@ public class Board extends JPanel implements ActionListener
     }
 
     private void draw(Graphics g) {
+
+        g.setColor(Color.white);
+        g.setFont( new Font("Verdana",Font.BOLD, 35));
+        FontMetrics metrics1 = getFontMetrics(g.getFont());
+        g.drawString("Score: "+(snakeSize-4), (WindowSize- metrics1.stringWidth("Score: "+(snakeSize-4)))/2, g.getFont().getSize());
+
         if(playGame){
             //draw fruit
-            g.setColor(Color.red);
+            if(fruitT==0)
+                g.setColor(Color.yellow);//normal fruit
+            else if(fruitT==1)
+                g.setColor(Color.red);//slow fruit
+            else
+                g.setColor(new Color(164, 206, 251));//speed fruit
             g.fillRect(fruitX,fruitY,UnitSize,UnitSize);
-
 
             //draw snake:
             for(int i = 0;i<snakeSize; i++){
@@ -79,12 +92,12 @@ public class Board extends JPanel implements ActionListener
                 }
                 //body is light green
                 else{
-                    g.setColor(new Color(119, 255, 73));
+                    g.setColor(new Color(205, 250, 137));
                     g.fillRect(x[i], y[i], UnitSize, UnitSize);
 
                 }
             }
-            Toolkit.getDefaultToolkit().sync();
+          //  Toolkit.getDefaultToolkit().sync();
 
         }
         else {
@@ -107,6 +120,10 @@ public class Board extends JPanel implements ActionListener
     private void checkFruit(){
         //is the fruit eaten
         if ((x[0] == fruitX) && (y[0]==fruitY)){
+            if(fruitT==1)
+                timer.setDelay(Delay+booting);//slow
+            else if(fruitT==2&&0<(Delay-booting))
+                timer.setDelay(Delay-booting);//faster
             snakeSize++;
             newFruit();
         }
@@ -115,6 +132,7 @@ public class Board extends JPanel implements ActionListener
     private void newFruit() {
         fruitX = (int) (Math.random() * RandPos)*(UnitSize);
         fruitY = (int) (Math.random() * RandPos)*(UnitSize);
+        fruitT = (int) (Math.random() * RandPos)%3;
     }
 
     @Override
