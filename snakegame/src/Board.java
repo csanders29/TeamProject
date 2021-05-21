@@ -29,7 +29,7 @@ public class Board extends JPanel implements ActionListener
     private int fruitY;
     private int fruitT;
 
-    public static boolean playGame = true;
+    public static int playGame = 0;
     private Timer timer;
 
     public Board()
@@ -65,16 +65,23 @@ public class Board extends JPanel implements ActionListener
         super.paintComponent(g);
         draw(g);
     }
-
-    private void draw(Graphics g) {
-
+    private  void score(Graphics g){
         g.setColor(Color.white);
         g.setFont( new Font("Verdana",Font.BOLD, 35));
         FontMetrics metrics1 = getFontMetrics(g.getFont());
         g.drawString("Score: "+(snakeSize-4), (WindowSize- metrics1.stringWidth("Score: "+(snakeSize-4)))/2, g.getFont().getSize());
 
-        if(playGame){
+    }
+
+    private void draw(Graphics g) {
+
+        if(playGame==0) //star page
+        {
+            
+        }
+        else if(playGame==1){
             //draw fruit
+            score(g);
             if(fruitT==0)
                 g.setColor(Color.yellow);//normal fruit
             else if(fruitT==1)
@@ -101,6 +108,7 @@ public class Board extends JPanel implements ActionListener
 
         }
         else {
+            score(g);
             endGame(g);
         }
     }
@@ -137,7 +145,7 @@ public class Board extends JPanel implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e){
-        if(playGame){
+        if(playGame==1){
             checkFruit();
             Snake.snakeDie();
             Snake.move();
