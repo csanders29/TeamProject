@@ -44,11 +44,11 @@ public class Snake extends JFrame {
     static void snakeDie(){
         for(int i = Board.snakeSize; i>0;i--){
             if ((i>3)&&(Board.x[0]==Board.x[i])&&(Board.y[0]==Board.y[i])){
-                Board.playGame = 3;
+                Board.playGame = 100;
             }
         }
         if (Board.y[0] > Board.WindowSize || Board.y[0] < 0 || Board.x[0]>Board.WindowSize || Board.x[0]<0) {
-            Board.playGame = 3;
+            Board.playGame = 100;
         }
 
     }

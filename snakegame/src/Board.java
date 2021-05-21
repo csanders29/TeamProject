@@ -75,11 +75,27 @@ public class Board extends JPanel implements ActionListener
 
     private void draw(Graphics g) {
 
-        if(playGame==0) //star page
-        {
-            
+        if(playGame<50) //star page
+        {   g.setColor(Color.white);
+            g.setFont( new Font("Verdana",Font.BOLD, 10));
+            FontMetrics metrics1 = getFontMetrics(g.getFont());
+            String line1="Welcome to Snake game";
+            String line2="you use the direction keys to move the snake";
+            String line3="different type of fruit gives you different POWERS!!";
+            String line4="red fruit make you slower";
+            String line5="blue fruit make you faster";
+            String line6="yellow fruit make you nothing!!!";
+            String line7="make by Rocky, China, Jessica";
+            g.drawString( line1, (WindowSize- metrics1.stringWidth(line1))/2, g.getFont().getSize()+0);
+            g.drawString( line2, (WindowSize- metrics1.stringWidth(line2))/2, g.getFont().getSize()+30);
+            g.drawString( line3, (WindowSize- metrics1.stringWidth(line3))/2, g.getFont().getSize()+50);
+            g.drawString( line4, (WindowSize- metrics1.stringWidth(line4))/2, g.getFont().getSize()+70);
+            g.drawString( line5, (WindowSize- metrics1.stringWidth(line5))/2, g.getFont().getSize()+90);
+            g.drawString( line6, (WindowSize- metrics1.stringWidth(line6))/2, g.getFont().getSize()+110);
+            g.drawString( line7, (WindowSize- metrics1.stringWidth(line7))/2, g.getFont().getSize()+130);
+            playGame++;
         }
-        else if(playGame==1){
+        else if(playGame==50){
             //draw fruit
             score(g);
             if(fruitT==0)
@@ -145,7 +161,7 @@ public class Board extends JPanel implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e){
-        if(playGame==1){
+        if(playGame==50){
             checkFruit();
             Snake.snakeDie();
             Snake.move();
