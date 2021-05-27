@@ -17,6 +17,7 @@ public class Board extends JPanel implements ActionListener
     public static int WindowSize = 300;
     public static int UnitSize = 5;
     public static int Units = 500;
+
     private int RandPos = 60;
     private int Delay = 120;
     private int booting=60;
@@ -52,13 +53,10 @@ public class Board extends JPanel implements ActionListener
         for(int i = 0; i<snakeSize; i++){
             x[i] = 25-i*10;
             y[i] = 25;
-
         }
         newFruit();
-
         timer = new Timer(Delay, this);
         timer.start();
-
     }
     @Override
     public void paintComponent(Graphics g){
